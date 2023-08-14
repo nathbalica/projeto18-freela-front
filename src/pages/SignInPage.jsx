@@ -96,7 +96,7 @@ export default function SignInPage() {
       </form>
 
       <Link to="/signup">
-        Primeira vez? <GreenText>Cadastre-se!</GreenText>
+        <Text>Primeira vez? <SubText>Cadastre-se!</SubText></Text>
       </Link>
     </SingInContainer>
   )
@@ -108,15 +108,15 @@ const SingInContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom, #0ACF83, #000000);
+  background: linear-gradient(
+    to bottom,
+    #CE8BF8,
+    #F28F8F
+  );
   padding: 25px;
   
 
 `
-
-const GreenText = styled.span`
-  color: #0ACF83;
-`;
 
 const ErrorMessage = styled.div`
   color: red;
@@ -125,4 +125,13 @@ const ErrorMessage = styled.div`
 
 const Input = styled.input`
   border: ${({ invalid }) => invalid ? '1px solid red' : 'initial'};
+`;
+
+const Text = styled.span`
+ font-size: 20px;
+`
+
+const SubText = styled.span`
+color: #8C5B8C; /* Tom de roxo mais escuro */
+
 `;

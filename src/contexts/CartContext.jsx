@@ -1,50 +1,40 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import apiCart from "../services/apiCart";
-import AuthContext from "./AuthContext";
 import apis from "../services/apis";
-import apiProduct from "../services/apiProduct";
-import { useLocation } from "react-router-dom";
+import useAuth from "../hooks/auth";
 
 const CartContext = createContext();
 
 export function CartContextProvider({ children }) {
-  const [cartItens, setCartItens] = useState([]);
-  const { userAuth } = useContext(AuthContext);
-
-  useEffect(() => {
-    async function fetchCart() {
-
-      try {
-        const response = await apis.getSession(userAuth.token);
-        const { userId } = response.data;
-
-        const fetchCart = await apiCart.getCart(userId);
-        const transformedProds = [];
-        fetchCart.data.itens.forEach(id => {
-            apiProduct.getProduct(id)
-                .then(res => {
-                    transformedProds.push(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        });
-        
-        setCartItens(transformedProds);
-
-      } catch (err) {
-        console.log(err);
+    const [cartItems, setCartItems] = useState([]);
+    const { userAuth } = useAuth();
+  
+    // Add the addToCart function to the context
+    const addToCart = (item) => {
+      setCartItems((prevCartItems) => [...prevCartItems, item]);
+    };
+  
+    useEffect(() => {
+      async function fetchCart() {
+        try {
+          const cartResponse = await apis.createShoppingCart(userAuth.token);
+          const cartId = cartResponse.shoppingCart.id;
+          const cartItemsResponse = await apis.getCartItemsByCartId(
+            userAuth.token,
+            cartId
+          );
+          setCartItems(cartItemsResponse.data.cartItems);
+        } catch (error) {
+          console.log("Erro ao buscar o carrinho:", error);
+        }
       }
-    }
-    fetchCart();
-
-  }, []);
-
-  return (
-    <CartContext.Provider value={{ cartItens, setCartItens }}>
-      {children}
-    </CartContext.Provider>
-  );
-};
+      fetchCart();
+    }, [userAuth.userId]);
+  
+    return (
+      <CartContext.Provider value={{ cartItems, setCartItems, addToCart }}>
+        {children}
+      </CartContext.Provider>
+    );
+  }
 
 export default CartContext;

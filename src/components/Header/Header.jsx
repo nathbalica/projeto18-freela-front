@@ -1,68 +1,56 @@
 import React from "react";
-import { BiExit } from "react-icons/bi";
+import { FaBars } from "react-icons/fa";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { useContext } from "react";
-import CartContext from "../../contexts/CartContext";
-import { CartIcon, CartCount } from "./styles";
 import useAuth from "../../hooks/auth";
-import apis from "../../services/apis";
-
-// export default function Header({ cartItems, navigateToCheckout }) {
-//   return (
-//     <HeaderContainer>
-//       <BiExit color="#fff" />
-//       <CartIcon onClick={navigateToCheckout}>
-//         <AiOutlineShoppingCart color="#fff" />
-//         <CartCount>{cartItems}</CartCount>
-//       </CartIcon>
-//     </HeaderContainer>
-//   );
-// }
+import MyWalletLogo from "../MyWalletLogo";
+import SearchBar from "../ SearchBar";
+import TextHome from "../../pages/Home/TextHome";
 
 export default function Header() {
-  const navigate = useNavigate();
-  const {cartItens} = useContext(CartContext);
   const { userAuth, login } = useAuth();
 
-  function handleLogout() {
-    apis.logout(userAuth.token)
-      .then(res => {
-        localStorage.removeItem("userAuth");
-        login(null);
-        navigate("/")
-      })
-      .catch((err) => {
-        alert(err.response.data)
-      })
-  }
-
   return (
-      <StyledHeader>
-          <BiExit color="#fff" onClick={handleLogout}/>
-          <CartIcon onClick={() => navigate("/meu-carrinho")}>
-              <AiOutlineShoppingCart />
-              {cartItens && <CartCount>{cartItens.length}</CartCount>}
-          </CartIcon>
-      </StyledHeader>
+    <HeaderContainer>
+      <MyWalletLogoContainer>
+        <MyWalletLogo />
+      </MyWalletLogoContainer>
+      <IconContainer>
+        <FaBars color="#CD89F8" />
+      </IconContainer>
+      <TextHome />
+      <SearchBar />
+    </HeaderContainer>
   );
 }
 
-
-const StyledHeader = styled.div`
+const HeaderContainer = styled.div`
+  background-color: #fff;
+  height: auto;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 2px 5px 5px;
-  margin-bottom: 15px;
-  font-size: 26px;
-  border: #292929;
-  background-color: #038754;
-  height: 50px;
-  overflow: hidden;
+  position: fixed;
+  padding-top: 20px;
+  top: 0;
+  width: 100%;
+
 `;
 
-export const HeaderContainer = styled.header`
+const MyWalletLogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
-`
+const IconContainer = styled.div`
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 20px;
+  margin-top: 10px;
+`;
+
+
+
+

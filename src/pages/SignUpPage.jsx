@@ -4,13 +4,10 @@ import MyWalletLogo from "../components/MyWalletLogo"
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import apis from "../services/apis"
-import logo from "../assets/logo.png"
-// import { ThreeDots } from "react-loader-spinner"
-import useAuth from "../hooks/auth";
 
 
 export default function SignUpPage() {
-  const [form, setForm] = useState({ name: "", email: "", password: "", confirmPassword: "" })
+  const [form, setForm] = useState({ name: "", cpf: "", phone: "", email: "", password: "", confirmPassword: "" })
   const [errorMessage, setErrorMessage] = useState('')
   const [invalidFields, setInvalidFields] = useState({})
 
@@ -50,34 +47,42 @@ export default function SignUpPage() {
 
   function register(e) {
     e.preventDefault()
-    if (!validateForm()) {
-      setErrorMessage('Por favor, corrija os campos inválidos.');
-      return;
-    }
+    // if (!validateForm()) {
+    //   setErrorMessage('Por favor, corrija os campos inválidos.');
+    //   return;
+    // }
 
-    const { confirmPassword, ...loginData } = form;
+    const signupData = {
+      name: form.name,
+      cpf: form.cpf,
+      phone: form.phone,
+      email: form.email,
+      password: form.password,
+      confirmPassword: form.confirmPassword
+    };
 
+    console.log(signupData)
 
-    const promise = apis.signUp(loginData)
-    promise.then(res => {
+    apis.signUp({ ...form })
+      .then(res => {
 
-      navigate("/")
-    });
-    promise.catch(err => {
+        navigate("/")
+      })
+      .catch(err => {
 
-      if (err.response && err.response.status === 409) {
-        setErrorMessage('E-mail já cadastrado. Por favor, utilize outro e-mail.');
-      } else {
-        setErrorMessage('Erro, tente novamente.');
-      }
+        if (err.response && err.response.status === 409) {
+          setErrorMessage('E-mail já cadastrado. Por favor, utilize outro e-mail.');
+        } else {
+          setErrorMessage('Erro, tente novamente.', err);
+        }
 
-    })
+      })
 
   }
 
   return (
     <SingUpContainer>
-        <MyWalletLogo />
+      <MyWalletLogo />
       <form onSubmit={register}>
         <Input
           data-test="name"
@@ -89,6 +94,26 @@ export default function SignUpPage() {
           required
           invalid={invalidFields.name}
 
+        />
+        <Input
+          data-test="cpf"
+          placeholder="CPF"
+          type="text"
+          name="cpf"
+          onChange={handleForm}
+          value={form.cpf}
+          required
+          invalid={invalidFields.cpf}
+        />
+        <Input
+          data-test="phone"
+          placeholder="Telefone"
+          type="text"
+          name="phone"
+          onChange={handleForm}
+          value={form.phone}
+          required
+          invalid={invalidFields.phone}
         />
         <Input
           data-test="email"
@@ -131,7 +156,7 @@ export default function SignUpPage() {
 
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       <Link to="/">
-        Já tem uma conta? <GreenText>Entre agora!</GreenText>
+        <Text>Já tem uma conta? <SubText>Entre agora!</SubText></Text>
       </Link>
     </SingUpContainer>
   )
@@ -144,13 +169,19 @@ const SingUpContainer = styled.section`
   justify-content: center;
   align-items: center;
   padding: 25px;
-  background: linear-gradient(to bottom, #0ACF83, #000000);
+  background: linear-gradient(
+    to bottom,
+    #CE8BF8,
+    #F28F8F
+  );
+  
   
 `
 
-const GreenText = styled.span`
-  color: #0ACF83;
-`;
+const SubText = styled.span`
+color: #8C5B8C; /* Tom de roxo mais escuro */
+
+`
 
 const ErrorMessage = styled.div`
   color: red;
@@ -159,4 +190,8 @@ const ErrorMessage = styled.div`
 
 const Input = styled.input`
   border: ${({ invalid }) => invalid ? '1px solid red' : 'initial'};
+`
+
+const Text = styled.span`
+ font-size: 18px;
 `

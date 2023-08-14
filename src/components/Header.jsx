@@ -23,13 +23,21 @@ export default function Header() {
 export const StyledHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 2px 5px 5px;
-  margin-bottom: 15px;
-  font-size: 26px;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  width: 100%;
+  height: 150px;
+  background-color: #F6F6F6;
+  border: none;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+background: linear-gradient(135deg, white, #FFC0CB); 
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  color: #333333;
   font-family: 'Montserrat', sans-serif;
-  border: #292929;
-  background-color: #038754;
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
   height: 50px;
-  overflow: hidden;
+
 `

@@ -1,13 +1,10 @@
 import styled from "styled-components"
-import logo from "../assets/logo.png"
+import logo from "../assets/logo.svg"
 
 export default function MyWalletLogo() {
     return (
         <ContainerLogo>
             <img src={logo}/>
-            <Text>Passo a Passo</Text>
-            <Subtitle>Seu destino para sapatos incríveis!</Subtitle>
-
         </ContainerLogo>
     )
 }
@@ -17,9 +14,8 @@ const ContainerLogo = styled.div `
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
     img{
-        width: 150px;
+        width: 100px;
     }
 
 `
