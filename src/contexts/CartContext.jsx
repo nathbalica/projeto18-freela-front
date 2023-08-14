@@ -29,9 +29,13 @@ export function CartContextProvider({ children }) {
       }
       fetchCart();
     }, [userAuth.userId]);
+
+    const clearCart = () => {
+      setCartItems([]);
+    };
   
     return (
-      <CartContext.Provider value={{ cartItems, setCartItems, addToCart }}>
+      <CartContext.Provider value={{ cartItems, setCartItems, addToCart, clearCart }}>
         {children}
       </CartContext.Provider>
     );

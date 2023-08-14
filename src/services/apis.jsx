@@ -25,6 +25,12 @@ function getKittens(token) {
     return promise;
 }
 
+function getUserKittens(token) {
+    const config = configToken(token);
+    const promise = axios.get(`${import.meta.env.VITE_API_URL}/user-kittens`, config);
+    return promise;
+}
+
 function createKitten(token, body) {
     const config = configToken(token);
     const promise = axios.post(`${import.meta.env.VITE_API_URL}/kittens`, body, config);
@@ -92,6 +98,30 @@ function deleteCartItem(token, itemId) {
     return promise;
 }
 
+export async function createOrder(token) {
+    const config = configToken(token);
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/order`, null, config);
+    return response.data;
+  }
+  
+  export async function getOrderById(token, orderId) {
+    const config = configToken(token);
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/orders/${orderId}`, config);
+    return response.data;
+  }
+  
+  export async function updateOrderItem(token, orderId, itemId, body) {
+    const config = configToken(token);
+    const response = await axios.put(`${import.meta.env.VITE_API_URL}/orders/${orderId}/items/${itemId}`, body, config);
+    return response.data;
+  }
+
+  export function deleteCartItemsByCartId(token, cartId) {
+    const config = configToken(token);
+    const promise = axios.delete(`${import.meta.env.VITE_API_URL}/cart/${cartId}/items`, config);
+    return promise;
+}
+
 
 
 const apis = {
@@ -100,6 +130,7 @@ const apis = {
     getKittens,
     createKitten,
     getKitten,
+    getUserKittens,
     updateKitten,
     toggleKittenStatus,
     deleteKitten,
@@ -108,6 +139,10 @@ const apis = {
     getCartItemsByCartId,
     updateCartItem,
     deleteCartItem,
+    createOrder, // Add the new function
+    getOrderById, // Add the new function
+    updateOrderItem,
+    deleteCartItemsByCartId
 };
 
 

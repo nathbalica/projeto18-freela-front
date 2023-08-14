@@ -19,12 +19,29 @@ const ProductCard = (props) => {
 
 const StyledContainer = styled.div`
   font-family: 'Montserrat', sans-serif;
-  border: 1px solid #E0E0E0;
   border-radius: 15px;
   padding: 15px;
   margin: 20px 10px;
   background: rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(20px);
 
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.4) 100%
+    );
+    border-radius: 15px;
+    z-index: -1;
+  }
 `;
 
 const ProductInfo = styled.div`

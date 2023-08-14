@@ -105,13 +105,13 @@ export default function KittenDetails() {
         <KittenName>{kitten.name}</KittenName>
 
         <KittenInfoRow>
-          <KittenInfoItem withBackground withMarginLeft>
+          <KittenInfoItem withBackground withMarginLeft color="#E6B0AA">
             <strong></strong> {kitten.weight} kg
           </KittenInfoItem>
-          <KittenInfoItem withBackground withMarginLeft>
+          <KittenInfoItem withBackground withMarginLeft color="#AED6F1">
             <strong></strong> {kitten.breed}
           </KittenInfoItem>
-          <KittenInfoItem withBackground withMarginLeft>
+          <KittenInfoItem withBackground withMarginLeft color="#A9DFBF">
             <strong>{kitten.year_old} years</strong>
           </KittenInfoItem>
         </KittenInfoRow>
@@ -158,11 +158,12 @@ const CartCount = styled.span`
   position: absolute;
   top: 25px; /* Ajuste a posição vertical */
   right: -10px; /* Ajuste a posição horizontal para mover o contador para a direita */
-  background-color: red;
+  background-color: #BA68C8;
   color: white;
   border-radius: 50%;
-  padding: 4px;
-  font-size: 12px;
+  padding: 5px;
+  font-size: 14px;
+  height: 12px;
 `;
 
 

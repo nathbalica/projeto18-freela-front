@@ -8,9 +8,7 @@ export const HomePageContainer = styled.div`
 export const KittensContainer = styled.div`
   padding: 0px 20px 0 20px;
   margin-top: 100px;
-  background: #CA82F8;
 
-  
 `;
 
 export const KittensGrid = styled.div`
@@ -27,7 +25,7 @@ export const KittenItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0px 2px 10px rgba(202, 130, 248, 0.3);
+  box-shadow: 0px 2px 30px 0px rgba(202, 130, 248, 0.25)
 
 `;
 

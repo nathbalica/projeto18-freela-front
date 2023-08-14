@@ -5,6 +5,7 @@ export const KittenDetailsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  height: 100%;
 `;
 
 export const KittenImage = styled.img`
@@ -18,8 +19,29 @@ export const KittenInfo = styled.div`
   width: 100%;
   text-align: center;
   border-radius: 15px;
-  opacity: 0.5;
+  border: none;
+  border-radius: 15px;
+  margin:  20px;
   background: rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(20px);
+
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.4) 100%
+    );
+    border-radius: 15px;
+    z-index: -1;
+  }
 `;
 
 export const KittenName = styled.h2`
@@ -50,7 +72,7 @@ export const KittenInfoItem = styled.div`
   text-align: ${props => (props.alignLeft ? 'left' : 'center')};
   border-radius: ${props => (props.withBackground ? '10px' : '0')};
   padding: ${props => (props.withBackground ? '10px' : '0')};
-  background-color: ${props => (props.withBackground ? 'rgba(0, 0, 0, 0.2)' : 'transparent')};
+  background-color: ${props => props.color || 'transparent'};
   margin-right: ${props => (props.withBackground ? '8px' : '0')};
   margin-left: ${props => (props.withMarginLeft ? '8px' : '0')};
 `;
@@ -144,6 +166,8 @@ export const AddToCartButton = styled.button`
   background-color: #D58CE5;
   color: white;
   border: none;
+  font-size: 15px;
+  font-weight: 600;
   border-radius: 50%;
   width: 75%;
   padding: 20px 10px;
