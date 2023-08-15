@@ -9,9 +9,10 @@ import { AiOutlineHome } from 'react-icons/ai';
 import { IoIosArrowBack } from 'react-icons/io';
 import { BackButtonCircle } from "./KittenDetails/styles";
 
+
 export default function CheckoutPage() {
     const { userAuth } = useAuth();
-    const { cartItems, clearCart } = useCart()
+    const { cartItems } = useCart()
     const navigate = useNavigate();
 
     const [finish, setFinish] = useState(false);
@@ -30,8 +31,8 @@ export default function CheckoutPage() {
     const finishPurchase = async () => {
       try {
         const createOrderResponse = await apis.createOrder(userAuth.token);
-        const cartId = createOrderResponse.cartId;
-        
+        // const cartId = createOrderResponse.data.cartItem.shopping_cart_id;
+        console.log(createOrderResponse)
         await apis.deleteCartItemsByCartId(userAuth.token, cartId);
         setFinish(true);
         navigate("/order-success");

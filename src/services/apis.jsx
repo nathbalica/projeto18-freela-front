@@ -67,11 +67,14 @@ function deleteKitten(token, id) {
 //     return promise;
 // }
 
-export async function createShoppingCart(token) {
+function createShoppingCart(token) {
     const config = configToken(token);
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/cart`, null, config);
-    return response.data; // Supondo que a resposta da API contenha um campo chamado "cartId"
+    const body = {}; // Aqui você pode adicionar um corpo se necessário
+    const promise = axios.post(`${import.meta.env.VITE_API_URL}/cart`, body, config);
+    console.log(promise)
+    return promise;
 }
+
 
 export async function createCartItem(token, body) {
     const config = configToken(token);
